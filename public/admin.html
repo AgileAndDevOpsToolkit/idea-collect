@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5ee">
+  <title>Administration · Atelier d’idées</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/style.css">
+  <script defer src="./assets/vendor/vue-3.5.18.runtime.global.prod.js"></script>
+  <script defer src="./assets/vendor/qrcode-1.4.4.js"></script><script type="module" src="./assets/admin.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="wrap topline">
+  <a class="brand" href="./admin.html"><img src="./assets/mark.svg" alt="" width="36" height="36">Atelier d’idées</a>
+  <div class="inline"><a class="toplink" href="./">Participer <span aria-hidden="true">↗</span></a><button class="link" type="button" id="logout" hidden>Déconnexion</button></div>
+</div></header>
+<main class="wrap guest" id="main">
+  <noscript><p class="notice error">Active JavaScript pour administrer les ateliers.</p></noscript>
+  <section class="entry" id="loginView">
+    <div class="entry-intro"><p class="eyebrow"><span class="line"></span> Espace animation</p>
+      <h1>Les idées<br><em>en atelier.</em></h1><p class="lead">Pose une question, invite les participants et retrouve leurs propositions au même endroit.</p>
+      <div class="paper-art" aria-hidden="true"><i class="back-note"></i><i class="front-note"><b></b><b></b><b></b></i><i class="spark">✳</i></div>
+    </div>
+    <div class="card entry-card"><p class="eyebrow accent">Administration</p><h2>Accéder à mes sessions</h2>
+      <form id="loginForm"><label for="adminKey">Clé d’administration</label><input id="adminKey" type="password" required autocomplete="current-password" placeholder="Ta clé d’accès">
+        <button type="submit" class="btn primary stretch">Se connecter <span aria-hidden="true">→</span></button></form>
+      <p id="loginStatus" class="notice" role="status" hidden></p>
+    </div>
+  </section>
+  <section class="dashboard" id="listView" hidden>
+    <div class="view-heading"><div><p class="eyebrow accent"><span class="line"></span> Espace animation</p>
+      <h1>Mes sessions</h1><p class="quiet">Retrouve un atelier ou lance une nouvelle collecte.</p></div>
+      <button id="createOpen" type="button" class="btn primary"><span aria-hidden="true">＋</span> Nouvelle session</button></div>
+    <p class="notice" role="status" id="listStatus" hidden></p>
+    <section class="card collection"><div class="card-heading"><h2>Sessions créées <span id="sessionCount" class="count">0</span></h2><button class="link" id="reloadList" type="button">Actualiser</button></div>
+      <div class="empty" id="noSessions"><span class="empty-mark" aria-hidden="true">✳</span><h3>Aucune session pour le moment</h3><p>Crée une session pour obtenir son code et son QR code.</p></div>
+      <ul class="sessions" id="sessionList"></ul></section>
+  </section>
+  <section class="dashboard" id="detailView" hidden>
+    <a href="#" class="link back">← Toutes les sessions</a>
+    <div class="detail-heading"><p class="eyebrow accent"><span class="line"></span> Session <span class="mono" id="detailCode"></span></p>
+      <h1 id="detailQuestion" tabindex="-1"></h1><button type="button" id="editOpen" class="link">Modifier la question</button></div>
+    <p class="notice" role="status" id="detailStatus" hidden></p>
+    <div class="detail-grid">
+      <section class="card collection"><div class="card-heading"><h2>Idées reçues <span class="count" id="ideaCount">0</span></h2><button class="link" id="reloadIdeas" type="button">Actualiser</button></div>
+        <div class="actions"><button type="button" id="copyIdeas" class="btn small">Tout copier</button><button type="button" id="exportIdeas" class="btn small">Exporter en CSV <span aria-hidden="true">↓</span></button></div>
+        <div id="noIdeas" class="empty"><span class="empty-mark" aria-hidden="true">✳</span><h3>La collecte est ouverte</h3><p>Partage le QR code. Les premières idées apparaîtront ici en actualisant.</p></div>
+        <ol id="ideaList" class="ideas"></ol>
+      </section>
+      <aside class="card invitation"><p class="eyebrow accent">Accès participant</p><h2>Rejoindre l’atelier</h2>
+        <button class="qr-button" id="openQr" type="button" aria-label="Agrandir le QR code"><canvas class="qr" id="qr" aria-label="QR code de la session"></canvas></button>
+        <p class="qr-label">Code de session</p><strong class="big-code" id="joinCode"></strong>
+        <div class="invite-links"><button class="btn small" id="copyLink" type="button">Copier le lien</button><a id="joinLink" class="link" href="./" target="_blank" rel="noopener">Ouvrir ↗</a></div>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer class="wrap foot"><span>Atelier d’idées</span><span>Espace animation</span></footer>
+<dialog id="questionDialog" aria-labelledby="dialogTitle">
+  <form id="questionForm"><p class="eyebrow accent">Paramètres de session</p><h2 id="dialogTitle">Nouvelle session</h2>
+    <label for="questionInput">Question posée aux participants</label><textarea id="questionInput" rows="3" required maxlength="300"></textarea>
+    <p id="questionHint" class="hint">Le code de session et le QR code sont générés à la création.</p>
+    <p id="questionStatus" class="notice" role="status" hidden></p>
+    <div class="dialog-actions"><button type="button" class="btn" data-close>Annuler</button><button class="btn primary" type="submit" id="saveQuestion">Créer la session</button></div>
+  </form>
+</dialog>
+<dialog class="qr-dialog" id="qrDialog" aria-labelledby="qrTitle">
+  <p class="eyebrow accent">Accès participant</p><h2 id="qrTitle">Rejoindre l’atelier</h2>
+  <canvas class="qr" id="largeQr" aria-label="QR code à scanner"></canvas>
+  <strong class="big-code" id="largeCode"></strong><button class="btn" type="button" data-close>Fermer</button>
+</dialog>
+<dialog id="copyDialog" aria-labelledby="copyTitle"><h2 id="copyTitle">Copie manuelle</h2><label for="copyText">Texte à copier</label>
+  <textarea id="copyText" rows="7" readonly></textarea><p class="hint">Le texte est sélectionné. Utilise la commande Copier de ton appareil.</p>
+  <div class="dialog-actions"><button type="button" class="btn" data-close>Fermer</button></div>
+</dialog>
+</body></html>

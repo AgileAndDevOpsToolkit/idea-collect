@@ -1,0 +1,7 @@
+# Chargé par apache2-foreground. /tmp reste accessible avec une racine en lecture seule.
+export APACHE_RUN_USER=www-data
+export APACHE_RUN_GROUP=www-data
+export APACHE_RUN_DIR=/tmp/atelier-apache/run
+export APACHE_LOCK_DIR=/tmp/atelier-apache/lock
+export APACHE_PID_FILE=/tmp/atelier-apache/run/apache2.pid
+export APACHE_LOG_DIR=/var/log/apache2

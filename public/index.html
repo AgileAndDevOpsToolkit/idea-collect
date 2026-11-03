@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5ee">
+  <title>Participer · Atelier d’idées</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/style.css"><script type="module" src="./assets/participant.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="wrap topline">
+  <a class="brand" href="./"><img src="./assets/mark.svg" alt="" width="36" height="36">Atelier d’idées</a>
+  <a class="toplink" href="./admin.html">Administration <span aria-hidden="true">↗</span></a>
+</div></header>
+<main class="wrap guest" id="main">
+  <noscript><p class="notice error">Active JavaScript pour participer à l’atelier.</p></noscript>
+  <section class="entry" id="welcome">
+    <div class="entry-intro">
+      <p class="eyebrow"><span class="line"></span> Espace participant</p>
+      <h1>Une idée à<br><em>partager&nbsp;?</em></h1>
+      <p class="lead">Rejoins ton atelier et dépose tes idées, une par une.</p>
+      <div class="paper-art" aria-hidden="true"><i class="back-note"></i><i class="front-note"><b></b><b></b><b></b></i><i class="spark">✳</i></div>
+    </div>
+    <div class="card entry-card">
+      <p class="eyebrow accent">Accès à l’atelier</p><h2>Rejoindre une session</h2>
+      <p id="joinHint" class="quiet">Le code est fourni par la personne qui anime l’atelier.</p>
+      <form id="joinForm" method="post">
+        <label for="code">Code de session</label>
+        <input class="code-input" id="code" name="code" placeholder="Ex. K7M4PN" maxlength="6" minlength="6" required autocomplete="off" autocapitalize="characters" spellcheck="false">
+        <label for="nickname">Prénom ou pseudo</label>
+        <input id="nickname" name="nickname" placeholder="Ex. Camille" maxlength="40" autocomplete="nickname" required>
+        <p class="hint">Tes idées sont recueillies sans ton nom.</p>
+        <button class="btn primary stretch" type="submit">Rejoindre la session <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="notice" role="status" id="joinStatus" hidden></p>
+    </div>
+  </section>
+  <section class="participant-sheet" id="board" hidden>
+    <div class="sheet-toolbar"><span class="badge">Session <strong id="activeCode"></strong></span><button class="link" id="leave" type="button">Quitter la session</button></div>
+    <article class="card contribution">
+      <p class="eyebrow accent"><span class="line"></span> La question de l’atelier</p>
+      <h1 id="question" tabindex="-1"></h1>
+      <p class="quiet" id="hello"></p>
+      <form id="ideaForm" method="post">
+        <div class="field-caption"><label for="idea">Ton idée</label><span id="counter" class="hint">0 / 1 000</span></div>
+        <textarea id="idea" name="idea" required rows="5" maxlength="1000" placeholder="Je propose de…"></textarea>
+        <p class="hint">Envoie une idée à la fois. Tu peux en proposer plusieurs.</p>
+        <button class="btn primary" type="submit">Envoyer mon idée <span aria-hidden="true">→</span></button>
+      </form>
+      <p id="ideaStatus" class="notice" role="status" hidden></p>
+    </article>
+  </section>
+</main>
+<footer class="wrap foot"><span>Atelier d’idées</span><span>Collecte collaborative</span></footer>
+</body></html>

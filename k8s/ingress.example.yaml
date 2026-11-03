@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: atelier-idees
+spec:
+  # Si la classe n’est pas celle par défaut, renseigner le résultat de kubectl get ingressclass.
+  # ingressClassName: traefik
+  # Si ton Ingress termine TLS avec un certificat existant, décommenter puis adapter.
+  # tls:
+  #   - hosts: [idees.exemple.fr]
+  #     secretName: idees-tls
+  rules:
+    - host: idees.exemple.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: atelier-idees
+                port:
+                  number: 80
